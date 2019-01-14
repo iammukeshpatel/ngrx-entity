@@ -1,0 +1,13 @@
+<p>
+  user works!
+</p>
+Users
+<button type="button" (click)="create()"> Create</button>
+<button type="button" (click)="update()"> Update</button>
+
+<table>
+  <tr *ngFor="let user of users | async">
+    <td>{{ user.id }}</td>
+    <td>{{ user.name }}</td>
+  </tr>
+</table>
