@@ -25,7 +25,7 @@ import * as fromUser from './user/user.reducer';
       InMemoryDataService, { dataEncapsulation: false }
     ),
     StoreModule.forRoot({
-      users: fromUser.reducer
+      user: fromUser.reducer
     }),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states

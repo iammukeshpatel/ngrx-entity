@@ -5,18 +5,18 @@ import { createSelector, createFeatureSelector } from '@ngrx/store';
 
 export interface State extends EntityState<User> {
     // additional entities state properties
-    // selectedUserId: number | null;
+    selectedUserId: string |         number | null;
 }
 
 export const adapter: EntityAdapter<User> = createEntityAdapter<User>();
 
 const defaultPizza = {
     ids: [1],
-    // selectedUserId: 1,
+    selectedUserId: null,
     entities: {
         1: {
             id: 1,
-            size: 'Mukesh'
+            name: 'Mukesh'
         }
     }
 };
@@ -78,9 +78,11 @@ export function reducer(state = initialState, action: UserActionsUnion): State {
     }
 }
 
-// export const getSelectedUserId = (state: State) => state.selectedUserId;
 
-export const getUserState = createFeatureSelector<State>('user');
+export const selectUserState = createFeatureSelector<State>('user');
+
+export const getSelectedUserId = (state: State) => state.selectedUserId;
+
 
 // get the selectors
 export const {
@@ -88,7 +90,7 @@ export const {
     selectEntities,
     selectAll,
     selectTotal,
-} = adapter.getSelectors(getUserState);
+} = adapter.getSelectors(selectUserState);
 
 // select the array of user ids
 export const selectUserIds = selectIds;
@@ -102,15 +104,14 @@ export const selectAllUsers = selectAll;
 // select the total user count
 export const selectUserTotal = selectTotal;
 
-export const selectUserState = createFeatureSelector<State>('users');
 
-// export const selectCurrentUserId = createSelector(
-//     selectUserState,
-//     getSelectedUserId
-// );
+export const selectCurrentUserId = createSelector(
+    selectUserState,
+    getSelectedUserId
+);
 
-// export const selectCurrentUser = createSelector(
-//     selectUserEntities,
-//     selectCurrentUserId,
-//     (userEntities, userId) => userEntities[userId]
-// );
+export const selectCurrentUser = createSelector(
+    selectUserEntities,
+    selectCurrentUserId,
+    (userEntities, userId) => userEntities[userId]
+);
