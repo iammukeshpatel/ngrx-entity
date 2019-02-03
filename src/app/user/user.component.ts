@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { updateBinding } from '@angular/core/src/render3/instructions';
 import { User } from '../model/user';
 import { Store } from '@ngrx/store';
 import * as fromAction from './user.action';
@@ -27,13 +26,12 @@ export class UserComponent implements OnInit {
       name: 'aaa'
     };
 
-    console.log(user);
-
     this.store.dispatch(new fromAction.AddUser({user: user}));
   }
 
-  update() {
-
+  update(user) {
+    user.name = 'Update User';
+    this.store.dispatch(new fromAction.UpdateUser({ user: user }));
   }
 
 }

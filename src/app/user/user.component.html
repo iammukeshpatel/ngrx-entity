@@ -3,11 +3,17 @@
 </p>
 Users
 <button type="button" (click)="create()"> Create</button>
-<button type="button" (click)="update()"> Update</button>
 
-<table>
+
+<table [class]="table">
+  <tr>
+    <th>id</th>
+    <th>Name</th>
+    <th>Actions</th>
+  </tr>
   <tr *ngFor="let user of users | async">
     <td>{{ user.id }}</td>
     <td>{{ user.name }}</td>
+    <td><button type="button" (click)="update(user)"> Update</button></td>
   </tr>
 </table>
